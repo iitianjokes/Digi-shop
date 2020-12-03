@@ -1,0 +1,54 @@
+{% extends 'header.html' %}
+
+{% block title %}
+Signup Form
+{% endblock %}
+
+
+{% block content %}
+<div class="container mt-5">
+
+    <div class="col-6 mx-auto ui segment p-4 ">
+        <h1 class="display-4 ">Signup</h1>
+        <div class="ui warning message" id="message" {% if not err %}hidden {% endif %}>
+            {{err}}
+        </div>
+        <form class="ui form" id="form" onsubmit=" return validate(event)" action="/signup/ " method="POST">
+            {% csrf_token %}
+
+            <div class="field">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="name">
+            </div>
+            <div class="field">
+                <label>Mobile No <i class="fas fa-mobile-alt"></i></label>
+                <input type="number" name="phone" placeholder="999999XXXX">
+            </div>
+            <div class="field">
+                <label>Email <i class="fas fa-envelope"></i></label>
+                <input type="email" name="email" placeholder="example@gmail.com">
+            </div>
+            <div class="field">
+                <label>Password <i class="fas fa-key"></i></label>
+                <input type="password" name="password" placeholder="*****">
+            </div>
+            <div class="field">
+                <label>Re-Password <i class="fas fa-key"></i></label>
+                <input type="password" name="repassword" placeholder="*****">
+            </div>
+
+            <div id="verification" class="field" hidden>
+                <label>verification Code</label>
+                <input type="text" id="code" name="code" placeholder="12345">
+            </div>
+
+            <button class="button ui teal btn-block" type="submit" id="submitbutton">Submit</button>
+            <a class="ui button"  hidden onclick="verifycode()" id="verifybutton">Verify</a>
+
+        </form>
+    </div>
+</div>
+{% load static %}
+<script src="{% static 'shop/js/signup.js' %}"></script>
+
+{% endblock %}
